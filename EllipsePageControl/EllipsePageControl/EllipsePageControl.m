@@ -48,6 +48,11 @@
     _controlSpacing=8;
     _otherColor=[UIColor redColor];
     _currentColor=[UIColor blueColor];
+    
+   // [self addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+//    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAction:)];
+//    [self addGestureRecognizer:tapGesture];
 }
 
 -(void)setOtherColor:(UIColor *)otherColor{
@@ -99,6 +104,12 @@
 
 -(void)setCurrentPage:(NSInteger)currentPage{
     
+    
+    if([self.delegate respondsToSelector:@selector(ellipsePageControlClick:index:)])
+    {
+        [self.delegate ellipsePageControlClick:self index:currentPage];
+    }
+    
     if(_currentPage==currentPage)
         return;
     _currentPage=currentPage;
@@ -138,8 +149,12 @@
              currPointView.layer.cornerRadius=_controlSize/2;
              currPointView.tag=page+1000;
              currPointView.backgroundColor=_currentColor;
+             currPointView.userInteractionEnabled=YES;
+             UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAction:)];
+             [currPointView addGestureRecognizer:tapGesture];
              [self addSubview:currPointView];
-              startX=CGRectGetMaxX(currPointView.frame)+_controlSpacing;
+             startX=CGRectGetMaxX(currPointView.frame)+_controlSpacing;
+       
             
             if(_currentBkImg){
                 currPointView.backgroundColor=[UIColor clearColor];
@@ -155,18 +170,30 @@
             otherPointView.backgroundColor=_otherColor;
             otherPointView.tag=page+1000;
             otherPointView.layer.cornerRadius=_controlSize/2;
+            otherPointView.userInteractionEnabled=YES;
+
+            UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAction:)];
+            [otherPointView addGestureRecognizer:tapGesture];
             [self addSubview:otherPointView];
-            startX=CGRectGetMaxX(otherPointView.frame)+_controlSpacing;
+             startX=CGRectGetMaxX(otherPointView.frame)+_controlSpacing;
         }
     }
     
 }
 
 
+-(void)clickAction:(UITapGestureRecognizer*)recognizer{
+    
+    NSInteger index=recognizer.view.tag-1000;
+    [self setCurrentPage:index];
+
+
+}
 
 
 
--(BOOL) isTheSameColor:(UIColor*)color1 anotherColor:(UIColor*)color2{
+
+-(BOOL)isTheSameColor:(UIColor*)color1 anotherColor:(UIColor*)color2{
     return  CGColorEqualToColor(color1.CGColor, color2.CGColor);
 }
 
