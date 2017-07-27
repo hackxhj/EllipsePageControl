@@ -1,11 +1,5 @@
 # 椭圆 长方形的 PageControl 自定义
-
-
-支持如下自定义  看效果图  有demo
-
- <img src="https://raw.githubusercontent.com/hackxhj/EllipsePageControl/master/123.png" alt="show" title="show">
-  
-  
+ 
 @property(nonatomic) NSInteger numberOfPages;          //  多少分页点
 
 @property(nonatomic) NSInteger currentPage;            //  当前点位置
@@ -22,19 +16,19 @@
 
 
 使用例子：
-支持pod导入
+### 支持pod导入
 
 pod 'EllipsePageControl','~> 0.0.3'
 
-头文件引入
+###  头文件引入
 
 #import "EllipsePageControl.h"
 
-定义
+### 定义
 
 @property(nonatomic,strong) EllipsePageControl *myPageControl1;
 
-使用
+### 使用
 
 _myPageControl1 = [[EllipsePageControl alloc] init];
 
@@ -50,9 +44,12 @@ _myPageControl1.delegate=self;
 
 
 
-#pragma  mark EllipsePageControlDelegate。监听用户点击
+### #pragma  mark EllipsePageControlDelegate。监听用户点击
 
 -(void)ellipsePageControlClick:(EllipsePageControl *)pageControl index:(NSInteger)clickIndex{
 
 }
 
+#  看效果图  demo 详细使用
+
+ <img src="https://raw.githubusercontent.com/hackxhj/EllipsePageControl/master/123.png" alt="show" title="show">
