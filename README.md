@@ -48,6 +48,8 @@ _myPageControl1.delegate=self;
 
 
 
+
+
 #pragma  mark EllipsePageControlDelegate。监听用户点击
 
 -(void)ellipsePageControlClick:(EllipsePageControl *)pageControl index:(NSInteger)clickIndex{
