@@ -21,4 +21,26 @@
 @property(nonatomic,strong) UIImage *currentBkImg;     //  当前点背景颜色
 
 
+使用例子：
+支持pod导入
+
+pod 'EllipsePageControl','~> 0.0.3'
+
+头文件引入
+#import "EllipsePageControl.h"
+
+定义
+@property(nonatomic,strong) EllipsePageControl *myPageControl1;
+
+使用
+_myPageControl1 = [[EllipsePageControl alloc] init];
+_myPageControl1.frame=CGRectMake(0, 80,[UIScreen mainScreen].bounds.size.width, 30);
+_myPageControl1.numberOfPages = 6;
+_myPageControl1.delegate=self;
+[self.view addSubview:_myPageControl1];
+
+#pragma  mark EllipsePageControlDelegate。监听用户点击
+-(void)ellipsePageControlClick:(EllipsePageControl *)pageControl index:(NSInteger)clickIndex{
+
+}
 
