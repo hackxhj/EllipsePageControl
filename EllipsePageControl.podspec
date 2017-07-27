@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
  
 
   s.name         = "EllipsePageControl"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "The elliptical rectangle of PageControl."
  
   s.homepage     = "https://github.com/hackxhj/EllipsePageControl"
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
  
 
-  s.source       = { :git => "https://github.com/hackxhj/EllipsePageControl.git", :tag => "0.0.2" }
+  s.source       = { :git => "https://github.com/hackxhj/EllipsePageControl.git", :tag => "0.0.3" }
 
  
 
