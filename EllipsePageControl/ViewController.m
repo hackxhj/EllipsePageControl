@@ -58,7 +58,7 @@
     _myPageControl1.frame=CGRectMake(0, 80,[UIScreen mainScreen].bounds.size.width, 30);
     _myPageControl1.numberOfPages = 6;
     _myPageControl1.delegate=self;
-    _myPageControl1.tag=1000;
+    _myPageControl1.tag=7777;
     [self.view addSubview:_myPageControl1];
     
     
@@ -67,20 +67,18 @@
     _myPageControl2.otherColor=[UIColor grayColor];
     _myPageControl2.currentColor=[UIColor orangeColor];
     _myPageControl2.delegate=self;
-    _myPageControl2.tag=1001;
-    [self.view addSubview:_myPageControl2];
+    _myPageControl2.tag=8888;
+     [self.view addSubview:_myPageControl2];
     
     
     
     _myPageControl3 = [[EllipsePageControl alloc] initWithFrame:CGRectMake(0, 480,[UIScreen mainScreen].bounds.size.width, 30)];
     _myPageControl3.numberOfPages = 6;
-    _myPageControl3.otherColor=[UIColor grayColor];
     _myPageControl3.controlSize=12;
-    _myPageControl3.currentColor=[UIColor brownColor];
     _myPageControl3.controlSpacing=15;
-    _myPageControl3.currentBkImg=[UIImage imageNamed:@"bkimg"];
+ //   _myPageControl3.currentBkImg=[UIImage imageNamed:@"bkimg"];
     _myPageControl3.delegate=self;
-    _myPageControl3.tag=1002;
+    _myPageControl3.tag=9999;
     [self.view addSubview:_myPageControl3];
 
     
@@ -119,6 +117,11 @@
     }
 }
 
+- (IBAction)go:(id)sender {
+    
+    
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

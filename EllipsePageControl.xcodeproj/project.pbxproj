@@ -220,6 +220,7 @@
 				TargetAttributes = {
 					3F42C3F31F28381A0096EEB1 = {
 						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 9DV836NYMJ;
 						ProvisioningStyle = Automatic;
 					};
 					3F42C40C1F28381C0096EEB1 = {
@@ -438,7 +439,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9DV836NYMJ;
 				INFOPLIST_FILE = EllipsePageControl/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cardlan.EllipsePageControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -449,7 +452,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9DV836NYMJ;
 				INFOPLIST_FILE = EllipsePageControl/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.cardlan.EllipsePageControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";

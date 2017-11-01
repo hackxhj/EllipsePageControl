@@ -46,13 +46,9 @@
     _currentPage=0;
     _controlSize=6;
     _controlSpacing=8;
-    _otherColor=[UIColor redColor];
-    _currentColor=[UIColor blueColor];
-    
-   // [self addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-//    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAction:)];
-//    [self addGestureRecognizer:tapGesture];
+    _otherColor=[UIColor grayColor];
+    _currentColor=[UIColor orangeColor];
+ 
 }
 
 -(void)setOtherColor:(UIColor *)otherColor{
@@ -95,6 +91,7 @@
     }
 }
 
+
 -(void)setNumberOfPages:(NSInteger)page{
     if(_numberOfPages==page)
         return;
@@ -109,11 +106,13 @@
     {
         [self.delegate ellipsePageControlClick:self index:currentPage];
     }
-    
+
     if(_currentPage==currentPage)
         return;
+    
+    [self exchangeCurrentView:_currentPage new:currentPage];
     _currentPage=currentPage;
-    [self createPointView];
+ 
     
 }
 
@@ -154,8 +153,7 @@
              [currPointView addGestureRecognizer:tapGesture];
              [self addSubview:currPointView];
              startX=CGRectGetMaxX(currPointView.frame)+_controlSpacing;
-       
-            
+ 
             if(_currentBkImg){
                 currPointView.backgroundColor=[UIColor clearColor];
                 UIImageView *currBkImg=[UIImageView new];
@@ -181,15 +179,82 @@
     
 }
 
+//切换当前的点
+-(void)exchangeCurrentView:(NSInteger)old new:(NSInteger)new
+{
+    UIView *oldSelect=[self viewWithTag:1000+old];
+    CGRect mpSelect=oldSelect.frame;
+ 
+    UIView *newSeltect=[self viewWithTag:1000+new];
+    CGRect newTemp=newSeltect.frame;
+    
+    if(_currentBkImg){
+        UIView *imgview=[oldSelect viewWithTag:1234];
+        [imgview removeFromSuperview];
+        
+        newSeltect.backgroundColor=[UIColor clearColor];
+        UIImageView *currBkImg=[UIImageView new];
+        currBkImg.tag=1234;
+        currBkImg.frame=CGRectMake(0, 0, mpSelect.size.width, mpSelect.size.height);
+        currBkImg.image=_currentBkImg;
+        [newSeltect addSubview:currBkImg];
+    }
+    oldSelect.backgroundColor=_otherColor;
+    newSeltect.backgroundColor=_currentColor;
+
+    [UIView animateWithDuration:0.3 animations:^{
+        
+
+        
+        CGFloat lx=mpSelect.origin.x;
+         if(new<old)
+            lx+=_controlSize;
+        oldSelect.frame=CGRectMake(lx, mpSelect.origin.y, _controlSize, _controlSize);
+ 
+        CGFloat mx=newTemp.origin.x;
+        if(new>old)
+            mx-=_controlSize;
+        newSeltect.frame=CGRectMake(mx, newTemp.origin.y, _controlSize*2, _controlSize);
+ 
+        // 左边的时候到右边 越过点击
+        if(new-old>1)
+        {
+            for(NSInteger t=old+1;t<new;t++)
+            {
+              UIView *ms=[self viewWithTag:1000+t];
+              ms.frame=CGRectMake(ms.frame.origin.x-_controlSize, ms.frame.origin.y, _controlSize, _controlSize);
+            }
+        }
+        // 右边选中到左边的时候 越过点击
+        if(new-old<-1)
+        {
+            for(NSInteger t=new+1;t<old;t++)
+            {
+                UIView *ms=[self viewWithTag:1000+t];
+                ms.frame=CGRectMake(ms.frame.origin.x+_controlSize, ms.frame.origin.y, _controlSize, _controlSize);
+            }
+        }
+        
+        
+    }];
+    
+    
+ 
+}
+
+
+
 
 -(void)clickAction:(UITapGestureRecognizer*)recognizer{
     
     NSInteger index=recognizer.view.tag-1000;
+    
+    NSLog(@"-----:%ld",index);
+
     [self setCurrentPage:index];
 
 
 }
-
 
 
 
