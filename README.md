@@ -19,7 +19,7 @@
 使用例子：
 ### 支持pod导入
 ```ruby
-pod 'EllipsePageControl','~> 0.0.3'
+pod 'EllipsePageControl','~> 0.0.4'
 ```
 
 
