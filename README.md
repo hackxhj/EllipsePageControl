@@ -1,4 +1,4 @@
-# 椭圆 长方形的 PageControl 自定义
+## 椭圆 长方形的 PageControl 自定义
 
 ```objc
 @property(nonatomic) NSInteger numberOfPages;          //  多少分页点
@@ -53,6 +53,6 @@ _myPageControl1.delegate=self;
 
 }
 ```
-#  看效果图  demo 详细使用
+###  看效果图  demo 详细使用
 
  <img src="https://raw.githubusercontent.com/hackxhj/EllipsePageControl/master/123.png" alt="show" title="show">
