@@ -25,13 +25,17 @@
 */
 @property(nonatomic) NSInteger currentPage;
 /*
- 点的大小
+ 未选中点的大小点的大小
 */
-@property(nonatomic) NSInteger controlSize;
+@property(nonatomic) CGSize otherControlSize;
+/*
+ 选中的点的大小
+*/
+@property(nonatomic) CGSize currentControlSize;
 /*
 点的间距
 */
-@property(nonatomic) NSInteger controlSpacing;
+@property(nonatomic) CGFloat controlSpacing;
 /*
  其他未选中点颜色
 */

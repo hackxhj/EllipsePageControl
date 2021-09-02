@@ -36,7 +36,6 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    
 
 }
 
@@ -44,7 +43,8 @@
     self.backgroundColor=[UIColor clearColor];
     _numberOfPages=0;
     _currentPage=0;
-    _controlSize=6;
+    _otherControlSize=CGSizeMake(6, 6);
+    _currentControlSize = CGSizeMake(12, 6);
     _controlSpacing=8;
     _otherColor=[UIColor grayColor];
     _currentColor=[UIColor orangeColor];
@@ -67,16 +67,25 @@
     }
 }
 
--(void)setControlSize:(NSInteger)controlSize{
-    if(controlSize!=_controlSize){
-        _controlSize=controlSize;
+- (void)setCurrentControlSize:(CGSize)currentControlSize
+{
+    if (!CGSizeEqualToSize(currentControlSize, _currentControlSize)) {
+        _currentControlSize = currentControlSize;
         [self createPointView];
-
     }
 }
 
--(void)setControlSpacing:(NSInteger)controlSpacing{
-    if(_controlSpacing!=controlSpacing){
+- (void)setOtherControlSize:(CGSize)otherControlSize
+{
+    if (!CGSizeEqualToSize(otherControlSize, _otherControlSize)) {
+        _otherControlSize = otherControlSize;
+        [self createPointView];
+    }
+}
+
+-(void)setControlSpacing:(CGFloat)controlSpacing
+{
+    if(_controlSpacing != controlSpacing){
         
         _controlSpacing=controlSpacing;
         [self createPointView];
@@ -116,11 +125,15 @@
     
 }
 
+- (void)setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    [self createPointView];
+}
+
 -(void)clearView{
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
-
-
 
 -(void)createPointView{
     [self clearView];
@@ -130,22 +143,23 @@
     //居中控件
     CGFloat startX=0;
     CGFloat startY=0;
-    CGFloat mainWidth=_numberOfPages*(_controlSize+_controlSpacing);
+    CGFloat mainWidth=(_numberOfPages-1)*(_otherControlSize.width+_controlSpacing) + _currentControlSize.width;
     if(self.frame.size.width<mainWidth){
         startX=0;
     }else{
         startX=(self.frame.size.width-mainWidth)/2;
     }
-    if(self.frame.size.height<_controlSize){
+    if(self.frame.size.height<_otherControlSize.height){
         startY=0;
     }else{
-        startY=(self.frame.size.height-_controlSize)/2;
+        startY=(self.frame.size.height-_otherControlSize.height)/2;
     }
+    
      //动态创建点
     for (int page=0; page<_numberOfPages; page++) {
         if(page==_currentPage){
-             UIView *currPointView=[[UIView alloc]initWithFrame:CGRectMake(startX, startY, _controlSize*2, _controlSize)];
-             currPointView.layer.cornerRadius=_controlSize/2;
+             UIView *currPointView=[[UIView alloc]initWithFrame:CGRectMake(startX, startY, _currentControlSize.width, _currentControlSize.height)];
+             currPointView.layer.cornerRadius=_currentControlSize.height/2;
              currPointView.tag=page+1000;
              currPointView.backgroundColor=_currentColor;
              currPointView.userInteractionEnabled=YES;
@@ -164,10 +178,10 @@
              }
             
         }else{
-            UIView *otherPointView=[[UIView alloc]initWithFrame:CGRectMake(startX, startY, _controlSize, _controlSize)];
+            UIView *otherPointView=[[UIView alloc]initWithFrame:CGRectMake(startX, startY, _otherControlSize.width, _otherControlSize.height)];
             otherPointView.backgroundColor=_otherColor;
             otherPointView.tag=page+1000;
-            otherPointView.layer.cornerRadius=_controlSize/2;
+            otherPointView.layer.cornerRadius=_otherControlSize.height / 2;
             otherPointView.userInteractionEnabled=YES;
 
             UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAction:)];
@@ -204,17 +218,15 @@
 
     [UIView animateWithDuration:0.3 animations:^{
         
-
-        
         CGFloat lx=mpSelect.origin.x;
          if(new<old)
-            lx+=_controlSize;
-        oldSelect.frame=CGRectMake(lx, mpSelect.origin.y, _controlSize, _controlSize);
+            lx+=(_currentControlSize.width - _otherControlSize.width);
+        oldSelect.frame=CGRectMake(lx, mpSelect.origin.y, _otherControlSize.width, _otherControlSize.height);
  
         CGFloat mx=newTemp.origin.x;
         if(new>old)
-            mx-=_controlSize;
-        newSeltect.frame=CGRectMake(mx, newTemp.origin.y, _controlSize*2, _controlSize);
+            mx-=(_currentControlSize.width - _otherControlSize.width);
+        newSeltect.frame=CGRectMake(mx, newTemp.origin.y, _currentControlSize.width, _currentControlSize.height);
  
         // 左边的时候到右边 越过点击
         if(new-old>1)
@@ -222,7 +234,7 @@
             for(NSInteger t=old+1;t<new;t++)
             {
               UIView *ms=[self viewWithTag:1000+t];
-              ms.frame=CGRectMake(ms.frame.origin.x-_controlSize, ms.frame.origin.y, _controlSize, _controlSize);
+              ms.frame=CGRectMake(ms.frame.origin.x-(_currentControlSize.width - _otherControlSize.width), ms.frame.origin.y, _otherControlSize.width, _otherControlSize.height);
             }
         }
         // 右边选中到左边的时候 越过点击
@@ -231,15 +243,10 @@
             for(NSInteger t=new+1;t<old;t++)
             {
                 UIView *ms=[self viewWithTag:1000+t];
-                ms.frame=CGRectMake(ms.frame.origin.x+_controlSize, ms.frame.origin.y, _controlSize, _controlSize);
+                ms.frame=CGRectMake(ms.frame.origin.x+(_currentControlSize.width - _otherControlSize.width), ms.frame.origin.y, _otherControlSize.width, _otherControlSize.height);
             }
         }
-        
-        
     }];
-    
-    
- 
 }
 
 

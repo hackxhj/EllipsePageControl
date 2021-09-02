@@ -67,6 +67,7 @@
     _myPageControl2.otherColor=[UIColor grayColor];
     _myPageControl2.currentColor=[UIColor orangeColor];
     _myPageControl2.delegate=self;
+    _myPageControl2.currentControlSize=CGSizeMake(30, 6);
     _myPageControl2.tag=8888;
      [self.view addSubview:_myPageControl2];
     
@@ -74,7 +75,7 @@
     
     _myPageControl3 = [[EllipsePageControl alloc] initWithFrame:CGRectMake(0, 480,[UIScreen mainScreen].bounds.size.width, 30)];
     _myPageControl3.numberOfPages = 6;
-    _myPageControl3.controlSize=12;
+    _myPageControl3.currentControlSize=CGSizeMake(30, 6);
     _myPageControl3.controlSpacing=15;
  //   _myPageControl3.currentBkImg=[UIImage imageNamed:@"bkimg"];
     _myPageControl3.delegate=self;
